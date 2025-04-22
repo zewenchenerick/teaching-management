@@ -4,7 +4,7 @@ import com.erick.pojo.Dept;
 
 import java.util.List;
 
-public interface DepartmentService {
+public interface DeptService {
 
     /**
      * Query all department data

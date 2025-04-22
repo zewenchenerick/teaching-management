@@ -1,22 +1,22 @@
 package com.erick.service.imp;
 
-import com.erick.mapper.DepartmentMapper;
+import com.erick.mapper.DeptMapper;
 import com.erick.pojo.Dept;
-import com.erick.service.DepartmentService;
+import com.erick.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DepartmentImpl implements DepartmentService {
+public class DeptServiceImpl implements DeptService {
 
     @Autowired
-    private DepartmentMapper departmentMapper;
+    private DeptMapper deptMapper;
 
     @Override
     public List<Dept> findAll() {
-        return departmentMapper.findAll();
+        return deptMapper.findAll();
     }
 
 }
