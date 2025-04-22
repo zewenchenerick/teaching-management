@@ -1,4 +1,14 @@
 package com.erick.service;
 
+import com.erick.pojo.Dept;
+
+import java.util.List;
+
 public interface DepartmentService {
+
+    /**
+     * Query all department data
+     * @return list of departments
+     */
+    List<Dept> findAll();
 }
