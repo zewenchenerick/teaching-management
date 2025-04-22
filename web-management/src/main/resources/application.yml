@@ -1,0 +1,13 @@
+# spring project name
+spring:
+  application:
+    name: web-management
+  # set database connection configuration
+  datasource:
+    url: jdbc:mysql://localhost:3306/web01
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: chen888888
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
