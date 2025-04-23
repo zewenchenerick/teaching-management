@@ -66,4 +66,17 @@ public class DeptController {
         Dept dept = deptService.getById(id);
         return Result.success(dept);
     }
+
+
+    /**
+     * update department
+     * @param dept department object
+     * @return return updated result back to front end
+     */
+    @PutMapping("/depts")
+    public Result update(@RequestBody Dept dept){
+        System.out.println("update department " + dept);
+        deptService.update(dept);
+        return Result.success();
+    }
 }
