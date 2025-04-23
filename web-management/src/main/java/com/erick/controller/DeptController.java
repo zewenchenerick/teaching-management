@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-// @RequestMapping("/api")
+@RequestMapping("/depts")
 public class DeptController {
 
     @Autowired
     private DeptService deptService;
 
     // @RequestMapping(value = "/departments", method = RequestMethod.GET)
-    @GetMapping("/depts")
+    @GetMapping
     public Result list(){
         System.out.println("Query all department data");
         List<Dept> departmentList = deptService.findAll();
@@ -39,7 +39,7 @@ public class DeptController {
         System.out.println("delete department based on id: " + deptId);
         return Result.success();
     }*/
-    @DeleteMapping("/depts")
+    @DeleteMapping
     public Result delete(Integer id) {
         System.out.println("delete department based on id: " + id);
         deptService.deleteById(id);
@@ -52,7 +52,7 @@ public class DeptController {
      * @param dept department object
      * @return result back to front end
      */
-    @PostMapping("/depts")
+    @PostMapping
     public Result add(@RequestBody Dept dept){
         System.out.println("add new department: " + dept);
         deptService.add(dept);
@@ -60,7 +60,7 @@ public class DeptController {
     }
 
 
-    @GetMapping("/depts/{id}")
+    @GetMapping("/{id}")
     public Result getDeptById(@PathVariable Integer id){
         System.out.println("get department based on id " + id);
         Dept dept = deptService.getById(id);
@@ -73,7 +73,7 @@ public class DeptController {
      * @param dept department object
      * @return return updated result back to front end
      */
-    @PutMapping("/depts")
+    @PutMapping
     public Result update(@RequestBody Dept dept){
         System.out.println("update department " + dept);
         deptService.update(dept);
