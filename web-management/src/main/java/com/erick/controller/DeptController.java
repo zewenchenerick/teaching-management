@@ -47,6 +47,11 @@ public class DeptController {
     }
 
 
+    /**
+     * Add new department
+     * @param dept department object
+     * @return result back to front end
+     */
     @PostMapping("/depts")
     public Result add(@RequestBody Dept dept){
         System.out.println("add new department: " + dept);
