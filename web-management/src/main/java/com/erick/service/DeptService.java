@@ -17,4 +17,10 @@ public interface DeptService {
      * @param id department id
      */
     void deleteById(Integer id);
+
+    /**
+     * add new department
+     * @param dept department object
+     */
+    void add(Dept dept);
 }

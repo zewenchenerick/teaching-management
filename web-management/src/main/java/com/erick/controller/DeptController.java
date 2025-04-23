@@ -4,9 +4,7 @@ import com.erick.pojo.Dept;
 import com.erick.pojo.Result;
 import com.erick.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,6 +43,14 @@ public class DeptController {
     public Result delete(Integer id) {
         System.out.println("delete department based on id: " + id);
         deptService.deleteById(id);
+        return Result.success();
+    }
+
+
+    @PostMapping("/depts")
+    public Result add(@RequestBody Dept dept){
+        System.out.println("add new department: " + dept);
+        deptService.add(dept);
         return Result.success();
     }
 }
