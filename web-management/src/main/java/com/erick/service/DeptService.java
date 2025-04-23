@@ -23,4 +23,11 @@ public interface DeptService {
      * @param dept department object
      */
     void add(Dept dept);
+
+    /**
+     * get department by id
+     * @param id department id
+     * @return department object
+     */
+    Dept getById(Integer id);
 }

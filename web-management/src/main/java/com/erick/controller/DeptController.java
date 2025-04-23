@@ -58,4 +58,12 @@ public class DeptController {
         deptService.add(dept);
         return Result.success();
     }
+
+
+    @GetMapping("/depts/{id}")
+    public Result getDeptById(@PathVariable Integer id){
+        System.out.println("get department based on id " + id);
+        Dept dept = deptService.getById(id);
+        return Result.success(dept);
+    }
 }
