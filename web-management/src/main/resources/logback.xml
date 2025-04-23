@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Console output -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- Formatting output:
+                 %d represents date,
+                 %thread represents thread name,
+                 %-5level means left-aligned log level with 5-character width,
+                 %logger displays the name of the logger,
+                 %msg represents the log message,
+                 %n represents a newline -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- System file output -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- File name pattern for log output, %i indicates the index number -->
+            <FileNamePattern>/Users/chenzewen/Library/CloudStorage/SynologyDrive-synology/logs/tlias-%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <!-- Maximum number of historical log files to keep -->
+            <MaxHistory>30</MaxHistory>
+            <!-- Maximum file size; when exceeded, a new file is rolled over. Default is 10MB -->
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- Formatting output:
+                 %d represents date,
+                 %thread represents thread name,
+                 %-5level means left-aligned log level with 5-character width,
+                 %msg represents the log message,
+                 %n represents a newline -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log output level -->
+    <!--<root level="OFF">-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

@@ -3,11 +3,13 @@ package com.erick.controller;
 import com.erick.pojo.Dept;
 import com.erick.pojo.Result;
 import com.erick.service.DeptService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/depts")
 public class DeptController {
@@ -18,7 +20,8 @@ public class DeptController {
     // @RequestMapping(value = "/departments", method = RequestMethod.GET)
     @GetMapping
     public Result list(){
-        System.out.println("Query all department data");
+        // System.out.println("Query all department data");
+        log.info("Query all department list");
         List<Dept> departmentList = deptService.findAll();
         return Result.success(departmentList);
     }
@@ -41,7 +44,8 @@ public class DeptController {
     }*/
     @DeleteMapping
     public Result delete(Integer id) {
-        System.out.println("delete department based on id: " + id);
+        // System.out.println("delete department based on id: " + id);
+        log.info("Delete department based on id: {}", id);
         deptService.deleteById(id);
         return Result.success();
     }
@@ -54,7 +58,8 @@ public class DeptController {
      */
     @PostMapping
     public Result add(@RequestBody Dept dept){
-        System.out.println("add new department: " + dept);
+        // System.out.println("add new department: " + dept);
+        log.info("Add new department: {}", dept);
         deptService.add(dept);
         return Result.success();
     }
@@ -62,7 +67,8 @@ public class DeptController {
 
     @GetMapping("/{id}")
     public Result getDeptById(@PathVariable Integer id){
-        System.out.println("get department based on id " + id);
+        // System.out.println("get department based on id " + id);
+        log.info("get department based on id: {}", id);
         Dept dept = deptService.getById(id);
         return Result.success(dept);
     }
@@ -75,7 +81,7 @@ public class DeptController {
      */
     @PutMapping
     public Result update(@RequestBody Dept dept){
-        System.out.println("update department " + dept);
+        System.out.println("Update department " + dept);
         deptService.update(dept);
         return Result.success();
     }
