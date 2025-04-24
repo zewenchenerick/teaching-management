@@ -26,4 +26,10 @@ public interface EmpService {
      * @return page result object
      */
     PageResult<Emp> getEmployeesByPage(EmpQueryParam empQueryParam);
+
+    /**
+     * Save New  employee information and Work Experience
+     * @param emp encapsulated employee object
+     */
+    void saveEmployeeAndExperienceInfo(Emp emp);
 }

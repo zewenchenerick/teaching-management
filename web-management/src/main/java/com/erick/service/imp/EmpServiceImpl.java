@@ -1,7 +1,9 @@
 package com.erick.service.imp;
 
+import com.erick.mapper.EmpExprMapper;
 import com.erick.mapper.EmpMapper;
 import com.erick.pojo.Emp;
+import com.erick.pojo.EmpExpr;
 import com.erick.pojo.EmpQueryParam;
 import com.erick.pojo.PageResult;
 import com.erick.service.EmpService;
@@ -9,7 +11,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,6 +21,8 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpMapper empMapper;
+    @Autowired
+    private EmpExprMapper empExprMapper;
 
     @Override
     public PageResult<Emp> getEmployeesByPage(EmpQueryParam empQueryParam) {
@@ -29,6 +35,22 @@ public class EmpServiceImpl implements EmpService {
         // encapsulate page result and return
         Page<Emp> list = (Page<Emp>) empList;
         return new PageResult<>(list.getTotal(), empList);
+    }
+
+    @Override
+    public void saveEmployeeAndExperienceInfo(Emp emp) {
+        // 1. update employee information
+        emp.setCreateTime(LocalDateTime.now());
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.saveEmployee(emp);
+
+        // 2. update employee's work experience
+        List<EmpExpr> exprList = emp.getExprList();
+        if(!CollectionUtils.isEmpty(exprList)){
+            // set the id for employee
+            exprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
+            empExprMapper.saveBatch(exprList);
+        }
     }
 
     // --------------------------------original method----------------------------------------------------

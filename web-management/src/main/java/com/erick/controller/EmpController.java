@@ -8,9 +8,7 @@ import com.erick.pojo.Result;
 import com.erick.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -44,4 +42,15 @@ public class EmpController {
         return Result.success(employees);
     }
 
+    /**
+     * Save New  employee information and Work Experience
+     * @param emp encapsulated employee object
+     * @return Result back to front end
+     */
+    @PostMapping
+    public Result saveEmployeeAndExperienceInfo(@RequestBody Emp emp){
+        log.info("add new employee: {}", emp);
+        empService.saveEmployeeAndExperienceInfo(emp);
+        return Result.success();
+    }
 }

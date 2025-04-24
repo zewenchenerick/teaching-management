@@ -3,7 +3,9 @@ package com.erick.mapper;
 
 import com.erick.pojo.Emp;
 import com.erick.pojo.EmpQueryParam;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 
 import java.util.List;
 
@@ -40,4 +42,15 @@ public interface EmpMapper {
      * @return List of employees to display
      */
     List<Emp> list(EmpQueryParam empQueryParam);
+
+    /**
+     * Insert new employee basic information
+     * @param emp employee object
+     */
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert("insert into emp(username, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time)" +
+            "values (#{username}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image}," +
+            "#{entryDate}, #{deptId}, #{createTime}, #{updateTime})")
+    void saveEmployee(Emp emp);
+
 }
