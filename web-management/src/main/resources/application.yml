@@ -12,3 +12,7 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+# configure log message, to see the spring transaction management logging
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
