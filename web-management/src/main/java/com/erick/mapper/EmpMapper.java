@@ -2,8 +2,8 @@ package com.erick.mapper;
 
 
 import com.erick.pojo.Emp;
+import com.erick.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -29,10 +29,15 @@ public interface EmpMapper {
 
 
     // ----------------------------------page helper----------------------------------------------------------
+
+    // @Select("select e.*, d.name as deptName from emp e left join tlias.dept d on d.id = e.dept_id order by e.update_time desc")
+    // @Result(column = "begin", property = "startDate")
+    // List<Emp> list(String name, Integer gender, LocalDate startDate, LocalDate endDate);
+
     /**
-     * page query
+     * Page query - get list of employees to display
+     * @param empQueryParam conditional parameters object
      * @return List of employees to display
      */
-    @Select("select e.*, d.name as deptName from emp e left join tlias.dept d on d.id = e.dept_id order by e.update_time desc")
-    List<Emp> list();
+    List<Emp> list(EmpQueryParam empQueryParam);
 }
