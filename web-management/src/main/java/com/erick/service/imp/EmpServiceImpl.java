@@ -44,7 +44,7 @@ public class EmpServiceImpl implements EmpService {
     }
 
     // all exception will roll back
-    @Transactional(noRollbackFor = {Exception.class}) // Transactional Management - default only runtime error will roll back
+    @Transactional(rollbackFor = {Exception.class}) // Transactional Management - default only runtime error will roll back
     @Override
     public void saveEmployeeAndExperienceInfo(Emp emp) {
         try {
