@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Objects;
-
 @Slf4j
 @RestController
 public class UploadController {
@@ -29,7 +27,7 @@ public class UploadController {
         log.info("Upload file: {}", file.getOriginalFilename());
 
         // send to file to OSS storage management
-        String url = ossOperator.upload(file.getBytes(), Objects.requireNonNull(file.getOriginalFilename()));
+        String url = ossOperator.upload(file.getBytes(), file.getOriginalFilename());
 
         log.info("File has been uploaded to Aliyun OSS, url is {}", url);
 
