@@ -133,8 +133,9 @@ public class EmpServiceImpl implements EmpService {
             empExprMapper.saveBatch(empExprList);
         }
 
-        // 4. 如果图片发生变化，删除原图片
+        // 4. 如果图片URL发生变化，删除原图片
         if (originalImage != null && !originalImage.isEmpty() && 
+            newImage != null && !newImage.isEmpty() && 
             !originalImage.equals(newImage)) {
             try {
                 // 从完整的图片URL中提取objectName
