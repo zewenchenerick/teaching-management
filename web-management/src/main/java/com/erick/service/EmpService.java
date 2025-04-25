@@ -40,4 +40,17 @@ public interface EmpService {
      * @param ids List of id to be deleted
      */
     void deleteEmployees(List<Integer> ids);
+
+    /**
+     * Query employee information based on id
+     * @param id Employee id to be queried
+     * @return Queried Employee Object
+     */
+    Emp getInfoById(Integer id);
+
+    /**
+     * Update current selected employee information
+     * @param emp employee object to be updated
+     */
+    void updateEmployee(Emp emp);
 }

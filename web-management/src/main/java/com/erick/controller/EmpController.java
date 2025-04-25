@@ -67,4 +67,29 @@ public class EmpController {
         empService.deleteEmployees(ids);
         return Result.success();
     }
+
+
+    /**
+     * Query employee information based on id
+     * @param id Employee id to be queried
+     * @return Result object contain employee information
+     */
+    @GetMapping("/{id}")
+    public Result getInfoById(@PathVariable Integer id){
+        log.info("Query employee information based on id: id is {}", id);
+        Emp emp =  empService.getInfoById(id);
+        return Result.success(emp);
+    }
+
+    /**
+     * Update current selected employee information
+     * @param emp employee object to be updated
+     * @return Result object return back to front end
+     */
+    @PutMapping
+    public Result updateEmployee(@RequestBody Emp emp){
+        log.info("Update employee's information: employee is {}", emp);
+        empService.updateEmployee(emp);
+        return Result.success();
+    }
 }

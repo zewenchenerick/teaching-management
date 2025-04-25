@@ -58,4 +58,17 @@ public interface EmpMapper {
      * @param ids list of employees id
      */
     void deleteByIds(List<Integer> ids);
+
+    /**
+     * Query employee information (basic information and working experience) based on id
+     * @param id Employee id to be queried
+     * @return Employee id to be queried
+     */
+    Emp getByID(Integer id);
+
+    /**
+     * Update current selected employee basic information
+     * @param emp employee object to be updated
+     */
+    void updateById(Emp emp);
 }
