@@ -5,6 +5,8 @@ import com.erick.pojo.Emp;
 import com.erick.pojo.EmpQueryParam;
 import com.erick.pojo.PageResult;
 
+import java.util.List;
+
 public interface EmpService {
 
     // /**
@@ -32,4 +34,10 @@ public interface EmpService {
      * @param emp encapsulated employee object
      */
     void saveEmployeeAndExperienceInfo(Emp emp);
+
+    /**
+     * Delete employees based on id
+     * @param ids List of id to be deleted
+     */
+    void deleteEmployees(List<Integer> ids);
 }

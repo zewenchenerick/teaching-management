@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * employee management controller
@@ -51,6 +53,18 @@ public class EmpController {
     public Result saveEmployeeAndExperienceInfo(@RequestBody Emp emp){
         log.info("add new employee: {}", emp);
         empService.saveEmployeeAndExperienceInfo(emp);
+        return Result.success();
+    }
+
+    /**
+     * Delete batch of employees based on id
+     * @param ids List of id to be deleted
+     * @return Result object back to front end
+     */
+    @DeleteMapping
+    public Result deleteEmployees(@RequestParam List<Integer> ids){
+        log.info("Delete Employee: {}", ids);
+        empService.deleteEmployees(ids);
         return Result.success();
     }
 }

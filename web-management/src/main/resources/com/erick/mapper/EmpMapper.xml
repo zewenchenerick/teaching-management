@@ -4,6 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.erick.mapper.EmpMapper">
 
+    <delete id="deleteByIds">
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+
     <select id="list" resultType="com.erick.pojo.Emp">
         select e.*, d.name as deptName from emp e left join dept d on d.id = e.dept_id
         <where>

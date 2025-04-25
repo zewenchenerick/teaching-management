@@ -53,4 +53,9 @@ public interface EmpMapper {
             "#{entryDate}, #{deptId}, #{createTime}, #{updateTime})")
     void saveEmployee(Emp emp);
 
+    /**
+     * Delete batch of employees basic information based on IDs
+     * @param ids list of employees id
+     */
+    void deleteByIds(List<Integer> ids);
 }

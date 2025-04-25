@@ -17,4 +17,9 @@ public interface EmpExprMapper {
      */
     void saveBatch(List<EmpExpr> exprList);
 
+    /**
+     * Delete batch of employees working experience based on employee ids
+     * @param empIds List of employee ids to be deleted
+     */
+    void deleteByEmpIds(List<Integer> empIds);
 }

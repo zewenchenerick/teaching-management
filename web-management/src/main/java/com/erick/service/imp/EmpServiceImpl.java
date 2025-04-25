@@ -5,8 +5,10 @@ import com.erick.mapper.EmpMapper;
 import com.erick.pojo.*;
 import com.erick.service.EmpLogService;
 import com.erick.service.EmpService;
+import com.erick.utils.AliyunOSSOperator;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 public class EmpServiceImpl implements EmpService {
 
@@ -24,6 +27,8 @@ public class EmpServiceImpl implements EmpService {
     private EmpExprMapper empExprMapper;
     @Autowired
     private EmpLogService empLogService;
+    @Autowired
+    private AliyunOSSOperator ossOperator;
 
     @Override
     public PageResult<Emp> getEmployeesByPage(EmpQueryParam empQueryParam) {
@@ -60,6 +65,41 @@ public class EmpServiceImpl implements EmpService {
             EmpLog empLog = new EmpLog(null, LocalDateTime.now(), "Add new employee: " + emp);
             empLogService.insertLog(empLog);
         }
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void deleteEmployees(List<Integer> ids) {
+        // 1. 先查询要删除的员工信息，获取图片URL
+        List<Emp> empList = empMapper.list(new EmpQueryParam());
+        List<Emp> employeesToDelete = empList.stream()
+                .filter(emp -> ids.contains(emp.getId()))
+                .toList();
+
+        // 2. 删除员工信息
+        empMapper.deleteByIds(ids);
+
+        // 3. 删除员工工作经验信息
+        empExprMapper.deleteByEmpIds(ids);
+
+        // 4. 数据库操作成功后，删除OSS上的图片
+        employeesToDelete.stream()
+                .filter(emp -> emp.getImage() != null && !emp.getImage().isEmpty())
+                .forEach(emp -> {
+                    try {
+                        // 从完整的图片URL中提取objectName
+                        String imageUrl = emp.getImage();
+                        // 获取bucketName后面的部分作为objectName
+                        String objectName = imageUrl.substring(imageUrl.indexOf(".com/") + 5);
+                        // 删除OSS上的图片
+                        ossOperator.delete(objectName);
+                        // 记录删除成功的日志
+                        log.info("Successfully deleted image from OSS for employee {}: {}", emp.getId(), objectName);
+                    } catch (Exception e) {
+                        // 记录错误日志，但不影响删除员工信息的操作
+                        log.error("Failed to delete image from OSS for employee {}: {}", emp.getId(), e.getMessage());
+                    }
+                });
     }
 
     // --------------------------------original method----------------------------------------------------
