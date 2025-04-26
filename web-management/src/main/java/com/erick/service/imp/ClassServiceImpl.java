@@ -80,4 +80,16 @@ public class ClassServiceImpl implements ClassService {
         return classMapper.getClazzById(id);
 
     }
+
+    @Override
+    public void updateClazz(Clazz clazz) {
+
+        // 1. set update time to current time
+        clazz.setUpdateTime(LocalDateTime.now());
+
+
+
+        classMapper.updateClazzById(clazz);
+
+    }
 }

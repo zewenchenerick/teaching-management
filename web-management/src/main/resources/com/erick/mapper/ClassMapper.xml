@@ -10,6 +10,31 @@
         values
             (#{name}, #{room}, #{beginDate}, #{endDate}, #{masterId}, #{subject}, #{createTime}, #{updateTime})
     </insert>
+    
+    <update id="updateClazzById">
+        update clazz
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="room != null and room != ''">
+                room = #{room},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate},
+            </if>
+            <if test="masterId != null and masterId != ''">
+                master_id = #{masterId},
+            </if>
+            <if test="subject != null and subject != ''">
+                subject = #{subject},
+            </if>
+        </set>
+            where id = #{id}
+    </update>
 
     <select id="getClassList" resultType="com.erick.pojo.Clazz">
         select

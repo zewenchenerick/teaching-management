@@ -32,4 +32,10 @@ public interface ClassService {
      * @return Clazz Object of the given id
      */
     Clazz getClazzById(Integer id);
+
+    /**
+     * Update current selected class information
+     * @param clazz class object to be updated (contain updated information)
+     */
+    void updateClazz(Clazz clazz);
 }

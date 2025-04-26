@@ -79,4 +79,20 @@ public class ClassController {
 
         return Result.success(clazz);
     }
+
+
+    /**
+     * Update current selected class information
+     * @param clazz class object to be updated (contain updated information)
+     * @return Result object return back to front end
+     */
+    @PutMapping
+    public Result updateClazz(@RequestBody Clazz clazz){
+
+        log.info("Update class's information: class is {}", clazz);
+
+        classService.updateClazz(clazz);
+
+        return Result.success();
+    }
 }

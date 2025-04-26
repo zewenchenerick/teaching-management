@@ -37,4 +37,10 @@ public interface ClassMapper {
      */
     @Select("select * from clazz where id = #{id}")
     Clazz getClazzById(Integer id);
+
+    /**
+     * Update selected Class based on id
+     * @param clazz class object to be updated (contain updated information)
+     */
+    void updateClazzById(Clazz clazz);
 }
