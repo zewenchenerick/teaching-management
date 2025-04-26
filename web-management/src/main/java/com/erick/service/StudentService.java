@@ -25,4 +25,10 @@ public interface StudentService {
      * @param student Student entity to be added
      */
     void AddNewStudent(Student student);
+
+    /**
+     * Update student information
+     * @param student student entity to be updated
+     */
+    void update(Student student);
 }

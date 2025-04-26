@@ -52,4 +52,16 @@ public class StudentController {
         studentService.AddNewStudent(student);
         return Result.success();
     }
+
+    /**
+     * Update student
+     * @param student student entity to be updated
+     * @return Result object return back to front end
+     */
+    @PutMapping
+    public Result updateStudent(@RequestBody Student student){
+        log.info("Update Student: {}", student);
+        studentService.update(student);
+        return Result.success();
+    }
 }
