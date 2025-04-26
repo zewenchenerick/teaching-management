@@ -82,4 +82,8 @@
         order by update_time desc
     </select>
 
+    <select id="countByClassId" resultType="java.lang.Integer">
+        select count(*) as total from student where clazz_id = #{id} group by clazz_id
+    </select>
+
 </mapper>

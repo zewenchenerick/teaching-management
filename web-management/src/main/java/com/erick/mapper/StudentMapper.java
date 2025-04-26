@@ -42,4 +42,11 @@ public interface StudentMapper {
      * @param ids student id need to be deleted
      */
     void deleteById(List<Integer> ids);
+
+    /**
+     * Count number of student in this class
+     * @param id clazz id
+     * @return number of student
+     */
+    int countByClassId(Integer id);
 }

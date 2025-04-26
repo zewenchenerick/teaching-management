@@ -32,4 +32,11 @@ public class GlobalExceptionHandler {
         return Result.error("对不起, " + arr[2] + " 已存在");
 
     }
+
+    // 处理自定义异常
+    @ExceptionHandler(ClassHasStudentsException.class)
+    public Result handleClassHasStudentsException(ClassHasStudentsException ex) {
+        log.error("Deletion Error: ", ex);
+        return Result.error(ex.getMessage());
+    }
 }
