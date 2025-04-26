@@ -19,4 +19,10 @@ public interface ClassService {
      * @param id class id to be deleted
      */
     void deleteById(Integer id);
+
+    /**
+     * Add new class
+     * @param clazz new class object with its information
+     */
+    void addClazz(Clazz clazz);
 }

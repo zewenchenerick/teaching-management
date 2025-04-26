@@ -22,4 +22,10 @@ public interface ClassMapper {
      */
     @Delete("delete from clazz where id = #{id}")
     void deleteById(Integer id);
+
+    /**
+     * Add new class
+     * @param clazz new class object with its information
+     */
+    void addClazz(Clazz clazz);
 }

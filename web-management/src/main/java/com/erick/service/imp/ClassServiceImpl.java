@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -60,6 +61,16 @@ public class ClassServiceImpl implements ClassService {
     public void deleteById(Integer id) {
 
         classMapper.deleteById(id);
+
+    }
+
+    @Override
+    public void addClazz(Clazz clazz) {
+        // 1. set some additional information for class object
+        clazz.setCreateTime(LocalDateTime.now());
+        clazz.setUpdateTime(LocalDateTime.now());
+
+        classMapper.addClazz(clazz);
 
     }
 }

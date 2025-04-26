@@ -47,4 +47,20 @@ public class ClassController {
 
         return Result.success();
     }
+
+
+    /**
+     * Add new class
+     * @param clazz new class object with its information
+     * @return Result object return back to front end
+     */
+    @PostMapping
+    public Result addClazz(@RequestBody Clazz clazz){
+
+        log.info("Add new class: {}", clazz);
+
+        classService.addClazz(clazz);
+
+        return Result.success();
+    }
 }
