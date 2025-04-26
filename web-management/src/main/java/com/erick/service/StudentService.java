@@ -12,4 +12,11 @@ public interface StudentService {
      * @return Page Result with total count number and List of classes
      */
     PageResult<Student> getStudentsByPage(StudentQueryParam studentQueryParam);
+
+    /**
+     * Query student information based on id
+     * @param id student id to be queried
+     * @return Student Object contain all information
+     */
+    Student getInfoById(Integer id);
 }

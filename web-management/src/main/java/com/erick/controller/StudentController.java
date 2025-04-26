@@ -8,6 +8,7 @@ import com.erick.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,5 +30,17 @@ public class StudentController {
         log.info("Student Page Query: {}", studentQueryParam);
         PageResult<Student> studentPageResult = studentService.getStudentsByPage(studentQueryParam);
         return Result.success(studentPageResult);
+    }
+
+    /**
+     * Query student information based on id
+     * @param id student id to be queried
+     * @return Result object contain student information
+     */
+    @GetMapping("/{id}")
+    public Result getStudentById(@PathVariable Integer id){
+        log.info("Query student information based on id: id is {}", id);
+        Student student = studentService.getInfoById(id);
+        return Result.success(student);
     }
 }

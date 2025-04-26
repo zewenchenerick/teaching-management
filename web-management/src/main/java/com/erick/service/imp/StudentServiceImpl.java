@@ -45,4 +45,10 @@ public class StudentServiceImpl implements StudentService {
 
         return new PageResult<>(list.getTotal(), studentList);
     }
+
+    @Override
+    public Student getInfoById(Integer id) {
+
+        return studentMapper.getStudentById(id);
+    }
 }
