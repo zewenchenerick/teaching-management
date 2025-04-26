@@ -60,6 +60,12 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public void deleteById(Integer id) {
 
+        // TODO: Check if class has associated students before deleting
+        // int count = studentMapper.countByClassId(id);
+        // if (count > 0) {
+        //     throw new CustomException("对不起, 该班级下有学生, 不能直接删除");
+        // }
+
         classMapper.deleteById(id);
 
     }
@@ -86,8 +92,6 @@ public class ClassServiceImpl implements ClassService {
 
         // 1. set update time to current time
         clazz.setUpdateTime(LocalDateTime.now());
-
-
 
         classMapper.updateClazzById(clazz);
 
