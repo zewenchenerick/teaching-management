@@ -28,7 +28,7 @@ public class ClassController {
     @GetMapping
     public Result getClassListByPage(ClassQueryParam classQueryParam){
 
-        log.info("Page Query: {}", classQueryParam);
+        log.info("Class Page Query: {}", classQueryParam);
 
         PageResult<Clazz> classes = classService.getClassListByPage(classQueryParam);
 

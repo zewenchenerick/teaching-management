@@ -10,8 +10,7 @@ import java.util.List;
 public interface ClassService {
 
     /**
-     * Get Oage result of Classes list with conditional by page
-     *
+     * Get Page result of Classes list with conditional by page
      * @param classQueryParam conditional parameters object
      * @return Page Result with total count number and List of Classes
      */
