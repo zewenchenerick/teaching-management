@@ -84,4 +84,19 @@
         from emp left join emp_expr ee on emp.id = ee.emp_id where emp.id = #{id};
     </select>
 
+    <select id="countEmpJobData" resultType="java.util.Map">
+        select j.emp_type as pos, count(e.id) as total
+        from emp e
+                 left join job_list j
+                           on (e.job = j.job_type_id OR (e.job IS NULL AND j.job_type_id IS NULL))
+        group by j.emp_type order by total;
+    </select>
+
+    <select id="countEmpGenderData" resultType="java.util.Map">
+        select
+            if(gender = 1, '男', '女') as name,
+            count(*) as value
+        from emp group by gender;
+    </select>
+
 </mapper>

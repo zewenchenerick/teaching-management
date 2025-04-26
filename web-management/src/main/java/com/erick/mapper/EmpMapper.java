@@ -4,10 +4,12 @@ package com.erick.mapper;
 import com.erick.pojo.Emp;
 import com.erick.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EmpMapper {
@@ -71,4 +73,18 @@ public interface EmpMapper {
      * @param emp employee object to be updated
      */
     void updateById(Emp emp);
+
+    /**
+     * Count the number of employees in each position
+     * @return List of map, (each map is position -> number)
+     */
+    @MapKey("pos")
+    List<Map<String, Object>> countEmpJobData();
+
+    /**
+     * Count the number of employees in each gender
+     * @return List of map (Map name: values) for example 男:24
+     */
+    @MapKey("name")
+    List<Map<String, Object>> countEmpGenderData();
 }
