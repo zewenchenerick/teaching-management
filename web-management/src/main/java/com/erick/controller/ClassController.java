@@ -7,9 +7,7 @@ import com.erick.pojo.Result;
 import com.erick.service.ClassService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequestMapping("/clazzs")
@@ -32,5 +30,21 @@ public class ClassController {
         PageResult<Clazz> classes = classService.getClassListByPage(classQueryParam);
 
         return Result.success(classes);
+    }
+
+
+    /**
+     * Delete class by its id
+     * @param id class id to be deleted
+     * @return Result object back to front end
+     */
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable Integer id){
+
+        log.info("Delete emloyee: id is {}", id);
+
+        classService.deleteById(id);
+
+        return Result.success();
     }
 }

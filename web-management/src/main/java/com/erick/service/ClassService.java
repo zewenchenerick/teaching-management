@@ -13,4 +13,10 @@ public interface ClassService {
      * @return Page Result with total count number and List of Classes
      */
     PageResult<Clazz> getClassListByPage(ClassQueryParam classQueryParam);
+
+    /**
+     * Delete class by its id
+     * @param id class id to be deleted
+     */
+    void deleteById(Integer id);
 }

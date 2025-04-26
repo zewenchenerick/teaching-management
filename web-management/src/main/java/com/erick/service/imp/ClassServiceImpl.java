@@ -55,4 +55,11 @@ public class ClassServiceImpl implements ClassService {
 
         return new PageResult<>(list.getTotal(), classList);
     }
+
+    @Override
+    public void deleteById(Integer id) {
+
+        classMapper.deleteById(id);
+
+    }
 }
