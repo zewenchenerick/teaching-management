@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/students")
@@ -62,6 +64,19 @@ public class StudentController {
     public Result updateStudent(@RequestBody Student student){
         log.info("Update Student: {}", student);
         studentService.update(student);
+        return Result.success();
+    }
+
+
+    /**
+     * Delete Student based on id
+     * @param ids list of student id need to be deleted
+     * @return Result object return back to front end
+     */
+    @DeleteMapping("/{ids}")
+    public Result deleteById(@PathVariable List<Integer> ids){
+        log.info("Delete Student: {}", ids);
+        studentService.deleteById(ids);
         return Result.success();
     }
 }

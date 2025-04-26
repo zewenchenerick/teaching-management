@@ -36,4 +36,10 @@ public interface StudentMapper {
      * @param student student entity to be updated
      */
     void update(Student student);
+
+    /**
+     * Delete student by id
+     * @param ids student id need to be deleted
+     */
+    void deleteById(List<Integer> ids);
 }

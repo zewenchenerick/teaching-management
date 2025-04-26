@@ -4,6 +4,8 @@ import com.erick.pojo.PageResult;
 import com.erick.pojo.Student;
 import com.erick.pojo.StudentQueryParam;
 
+import java.util.List;
+
 public interface StudentService {
 
     /**
@@ -31,4 +33,10 @@ public interface StudentService {
      * @param student student entity to be updated
      */
     void update(Student student);
+
+    /**
+     * Delete Student by is
+     * @param ids student id need to be deleted
+     */
+    void deleteById(List<Integer> ids);
 }
