@@ -83,4 +83,18 @@ public class StudentServiceImpl implements StudentService {
     public void deleteById(List<Integer> ids) {
         studentMapper.deleteById(ids);
     }
+
+    @Override
+    public void handleViolation(Integer id, Integer score) {
+        // 1. set student update time
+        Student studentById = studentMapper.getStudentById(id);
+        studentById.setUpdateTime(LocalDateTime.now());
+
+        // 2. set violation count and score
+        studentById.setViolationCount((short) (studentById.getViolationCount()+1));
+        studentById.setViolationScore((short) (studentById.getViolationScore()+score));
+
+        // 3. update student
+        studentMapper.update(studentById);
+    }
 }

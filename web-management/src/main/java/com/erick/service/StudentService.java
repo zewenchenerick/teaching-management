@@ -39,4 +39,11 @@ public interface StudentService {
      * @param ids student id need to be deleted
      */
     void deleteById(List<Integer> ids);
+
+    /**
+     * Handle Student Violation
+     * @param id student id that has violation
+     * @param score Student delete score
+     */
+    void handleViolation(Integer id, Integer score);
 }

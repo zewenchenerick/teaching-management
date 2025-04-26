@@ -79,4 +79,17 @@ public class StudentController {
         studentService.deleteById(ids);
         return Result.success();
     }
+
+    /**
+     * Handle Student Violation
+     * @param id student id that has violation
+     * @param score Student delete score
+     * @return Result object return back to front end
+     */
+    @PutMapping("/violation/{id}/{score}")
+    public Result handleViolation(@PathVariable Integer id, @PathVariable Integer score){
+        log.info("Handle violation: id is {}, delete score is {}", id, score);
+        studentService.handleViolation(id, score);
+        return Result.success();
+    }
 }
