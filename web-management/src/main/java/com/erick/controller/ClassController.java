@@ -5,9 +5,12 @@ import com.erick.pojo.Clazz;
 import com.erick.pojo.PageResult;
 import com.erick.pojo.Result;
 import com.erick.service.ClassService;
+import com.erick.vo.ClazzVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/clazzs")
@@ -25,7 +28,7 @@ public class ClassController {
     @GetMapping
     public Result getClassListByPage(ClassQueryParam classQueryParam){
 
-        log.info("Page Query: {}", classQueryParam);
+        log.info("Class Page Query: {}", classQueryParam);
 
         PageResult<Clazz> classes = classService.getClassListByPage(classQueryParam);
 
@@ -94,5 +97,20 @@ public class ClassController {
         classService.updateClazz(clazz);
 
         return Result.success();
+    }
+
+
+    /**
+     * Get all classes information supporting adding new student
+     * @return Result object containing list of all classes (encapsulate in ClazzVO)
+     */
+    @GetMapping("/list")
+    public Result getAllClazz(){
+
+        log.info("Get all classes information");
+
+        List<ClazzVO> clazzList = classService.getAllClazz();
+
+        return Result.success(clazzList);
     }
 }

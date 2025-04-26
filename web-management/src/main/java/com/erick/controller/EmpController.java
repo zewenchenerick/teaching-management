@@ -39,7 +39,7 @@ public class EmpController {
      */
     @GetMapping
     public Result getEmployeesByPage(EmpQueryParam empQueryParam){
-        log.info("Page Query: {}", empQueryParam);
+        log.info("Employee Page Query: {}", empQueryParam);
         PageResult<Emp> employees = empService.getEmployeesByPage(empQueryParam);
         return Result.success(employees);
     }

@@ -6,14 +6,17 @@ import com.erick.pojo.ClassQueryParam;
 import com.erick.pojo.Clazz;
 import com.erick.pojo.PageResult;
 import com.erick.service.ClassService;
+import com.erick.vo.ClazzVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClassServiceImpl implements ClassService {
@@ -94,6 +97,21 @@ public class ClassServiceImpl implements ClassService {
         clazz.setUpdateTime(LocalDateTime.now());
 
         classMapper.updateClazzById(clazz);
+
+    }
+
+    @Override
+    public List<ClazzVO> getAllClazz() {
+
+        // 1. get list of classes
+        List<Clazz> clazzList = classMapper.getAllClazz();
+
+        // 2. encapsulated into list of ClassOV
+        return clazzList.stream().map(clazz -> {
+            ClazzVO clazzVO = new ClazzVO();
+            BeanUtils.copyProperties(clazz, clazzVO);
+            return clazzVO;
+        }).collect(Collectors.toList());
 
     }
 }

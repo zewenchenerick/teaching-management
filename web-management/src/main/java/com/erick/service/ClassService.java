@@ -3,12 +3,14 @@ package com.erick.service;
 import com.erick.pojo.ClassQueryParam;
 import com.erick.pojo.Clazz;
 import com.erick.pojo.PageResult;
+import com.erick.vo.ClazzVO;
+
+import java.util.List;
 
 public interface ClassService {
 
     /**
-     * Get Oage result of Classes list with conditional by page
-     *
+     * Get Page result of Classes list with conditional by page
      * @param classQueryParam conditional parameters object
      * @return Page Result with total count number and List of Classes
      */
@@ -38,4 +40,10 @@ public interface ClassService {
      * @param clazz class object to be updated (contain updated information)
      */
     void updateClazz(Clazz clazz);
+
+    /**
+     * Get all classes information supporting adding new student
+     * @return Result object containing list of all classes (encapsulate in ClazzVO)
+     */
+    List<ClazzVO> getAllClazz();
 }
