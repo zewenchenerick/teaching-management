@@ -99,4 +99,21 @@
         from emp group by gender;
     </select>
 
+    <select id="getAllEmp" resultType="com.erick.pojo.Emp">
+        select
+            id,
+            username,
+            password,
+            name,
+            gender,
+            job,
+            salary,
+            image,
+            entry_date,
+            dept_id,
+            create_time,
+            update_time
+        from emp
+    </select>
+
 </mapper>

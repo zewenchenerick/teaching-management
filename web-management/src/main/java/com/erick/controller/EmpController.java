@@ -6,6 +6,7 @@ import com.erick.pojo.EmpQueryParam;
 import com.erick.pojo.PageResult;
 import com.erick.pojo.Result;
 import com.erick.service.EmpService;
+import com.erick.vo.EmpVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -91,5 +92,20 @@ public class EmpController {
         log.info("Update employee's information: employee is {}", emp);
         empService.updateEmployee(emp);
         return Result.success();
+    }
+
+
+    /**
+     * Get all employees information
+     * @return Result object containing list of all employees
+     */
+    @GetMapping("/list")
+    public Result getAllEmp(){
+
+        log.info("Get all employees information");
+
+        List<EmpVO> empList = empService.getAllEmp();
+
+        return Result.success(empList);
     }
 }

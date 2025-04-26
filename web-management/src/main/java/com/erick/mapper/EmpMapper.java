@@ -3,10 +3,7 @@ package com.erick.mapper;
 
 import com.erick.pojo.Emp;
 import com.erick.pojo.EmpQueryParam;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.MapKey;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -87,4 +84,10 @@ public interface EmpMapper {
      */
     @MapKey("name")
     List<Map<String, Object>> countEmpGenderData();
+
+    /**
+     * Get all employees information
+     * @return List of all employees
+     */
+    List<Emp> getAllEmp();
 }
