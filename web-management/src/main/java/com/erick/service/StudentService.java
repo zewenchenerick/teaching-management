@@ -19,4 +19,10 @@ public interface StudentService {
      * @return Student Object contain all information
      */
     Student getInfoById(Integer id);
+
+    /**
+     * Add new student
+     * @param student Student entity to be added
+     */
+    void AddNewStudent(Student student);
 }

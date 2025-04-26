@@ -24,4 +24,10 @@ public interface StudentMapper {
      */
     @Select("select * from student where id = #{id}")
     Student getStudentById(Integer id);
+
+    /**
+     * Add new student
+     * @param student Student entity to be added
+     */
+    void addStudent(Student student);
 }

@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -48,7 +49,24 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getInfoById(Integer id) {
-
         return studentMapper.getStudentById(id);
+    }
+
+    @Override
+    public void AddNewStudent(Student student) {
+        // 1. set create time and update time
+        student.setCreateTime(LocalDateTime.now());
+        student.setUpdateTime(LocalDateTime.now());
+
+        // 2. update class name
+        Integer clazzId = student.getClazzId();
+        System.out.println(clazzId);
+        Clazz clazz = classMapper.getClazzById(clazzId);
+        System.out.println(clazz);
+        String clazzName = clazz.getName();
+        student.setClazzName(clazzName);
+
+        // 3. Add
+        studentMapper.addStudent(student);
     }
 }
