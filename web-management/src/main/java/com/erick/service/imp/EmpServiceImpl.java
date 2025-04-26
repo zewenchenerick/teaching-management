@@ -111,44 +111,23 @@ public class EmpServiceImpl implements EmpService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateEmployee(Emp emp) {
-        // 1. 获取原员工信息，用于比较图片是否发生变化
-        Emp originalEmp = empMapper.getByID(emp.getId());
-        String originalImage = originalEmp.getImage();
-        String newImage = emp.getImage();
-
-        // 2. Update employee basic information based on id
+        // 1. Update employee basic information based on id
         // set update current time to update time
         emp.setUpdateTime(LocalDateTime.now());
         empMapper.updateById(emp);
 
-        // 3. Update employee working experience information based on employee id
+        // 2. Update employee working experience information based on employee id
         Integer empId = emp.getId();
-        // 3.1 delete all original working experience based on id
+        // 2.1 delete all original working experience based on id
         empExprMapper.deleteByEmpIds(Collections.singletonList(empId));
 
-        // 3.2 add new working experiences
+        // 2.2 add new working experiences
         List<EmpExpr> empExprList = emp.getExprList();
         if (!CollectionUtils.isEmpty(empExprList)){
             empExprList.forEach(empExpr -> empExpr.setEmpId(empId));
             empExprMapper.saveBatch(empExprList);
         }
 
-        // 4. 如果图片URL发生变化，删除原图片
-        if (originalImage != null && !originalImage.isEmpty() && 
-            newImage != null && !newImage.isEmpty() && 
-            !originalImage.equals(newImage)) {
-            try {
-                // 从完整的图片URL中提取objectName
-                String objectName = originalImage.substring(originalImage.indexOf(".com/") + 5);
-                // 删除OSS上的原图片
-                ossOperator.delete(objectName);
-                // 记录删除成功的日志
-                log.info("Successfully deleted old image from OSS for employee {}: {}", empId, objectName);
-            } catch (Exception e) {
-                // 记录错误日志，但不影响更新操作
-                log.error("Failed to delete old image from OSS for employee {}: {}", empId, e.getMessage());
-            }
-        }
     }
 
     // --------------------------------original method----------------------------------------------------

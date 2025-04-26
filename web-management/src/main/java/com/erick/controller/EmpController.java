@@ -32,12 +32,11 @@ public class EmpController {
     // @RequestParam(value = "begin")@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
     // @RequestParam(value = "end")@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate
     /**
-     * Page Query with conditional
+     * Page Query employees with conditional
      * @param empQueryParam conditional parameters object
      * @return updated result back to front end
      */
     @GetMapping
-
     public Result getEmployeesByPage(EmpQueryParam empQueryParam){
         log.info("Page Query: {}", empQueryParam);
         PageResult<Emp> employees = empService.getEmployeesByPage(empQueryParam);
