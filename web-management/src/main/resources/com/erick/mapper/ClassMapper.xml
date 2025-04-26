@@ -13,6 +13,7 @@
 
     <select id="getClassList" resultType="com.erick.pojo.Clazz">
         select
+            id,
             name,
             room,
             begin_date,
