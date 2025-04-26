@@ -58,5 +58,19 @@
         order by update_time desc
     </select>
 
+    <select id="getAllClazz" resultType="com.erick.pojo.Clazz">
+        select
+            id,
+            name,
+            room,
+            begin_date,
+            end_date,
+            master_id,
+            subject,
+            create_time,
+            update_time
+        from clazz
+    </select>
+
 
 </mapper>

@@ -43,4 +43,10 @@ public interface ClassMapper {
      * @param clazz class object to be updated (contain updated information)
      */
     void updateClazzById(Clazz clazz);
+
+    /**
+     * Get all classes information
+     * @return List of all clazzes
+     */
+    List<Clazz> getAllClazz();
 }
