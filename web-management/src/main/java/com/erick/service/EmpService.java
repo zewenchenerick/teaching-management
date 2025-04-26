@@ -4,6 +4,7 @@ package com.erick.service;
 import com.erick.pojo.Emp;
 import com.erick.pojo.EmpQueryParam;
 import com.erick.pojo.PageResult;
+import com.erick.vo.EmpVO;
 
 import java.util.List;
 
@@ -53,4 +54,11 @@ public interface EmpService {
      * @param emp employee object to be updated
      */
     void updateEmployee(Emp emp);
+
+    /**
+     * Get all employees information
+     *
+     * @return List of all employees
+     */
+    List<EmpVO> getAllEmp();
 }

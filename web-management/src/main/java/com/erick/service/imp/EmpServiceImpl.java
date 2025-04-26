@@ -6,9 +6,11 @@ import com.erick.pojo.*;
 import com.erick.service.EmpLogService;
 import com.erick.service.EmpService;
 import com.erick.utils.AliyunOSSOperator;
+import com.erick.vo.EmpVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -128,6 +131,19 @@ public class EmpServiceImpl implements EmpService {
             empExprMapper.saveBatch(empExprList);
         }
 
+    }
+
+    @Override
+    public List<EmpVO> getAllEmp() {
+
+        List<Emp> empList = empMapper.getAllEmp();
+
+        // change empList to empVOList
+        return empList.stream().map(emp -> {
+            EmpVO vo = new EmpVO();
+            BeanUtils.copyProperties(emp, vo);
+            return vo;
+        }).collect(Collectors.toList());
     }
 
     // --------------------------------original method----------------------------------------------------
