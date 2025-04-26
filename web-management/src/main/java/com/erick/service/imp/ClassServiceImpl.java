@@ -1,7 +1,9 @@
 package com.erick.service.imp;
 
+import com.erick.exception.ClassHasStudentsException;
 import com.erick.mapper.ClassMapper;
 import com.erick.mapper.EmpMapper;
+import com.erick.mapper.StudentMapper;
 import com.erick.pojo.ClassQueryParam;
 import com.erick.pojo.Clazz;
 import com.erick.pojo.PageResult;
@@ -25,6 +27,8 @@ public class ClassServiceImpl implements ClassService {
     private ClassMapper classMapper;
     @Autowired
     private EmpMapper empMapper;
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public PageResult<Clazz> getClassListByPage(ClassQueryParam classQueryParam) {
@@ -38,8 +42,10 @@ public class ClassServiceImpl implements ClassService {
         // set some additional information to class
         classList.forEach(clazz -> {
             // set master name
-            String name = empMapper.getByID(clazz.getMasterId()).getName();
-            clazz.setMasterName(name);
+            if (clazz.getMasterId() != null){
+                String name = empMapper.getByID(clazz.getMasterId()).getName();
+                clazz.setMasterName(name);
+            }
 
             // set class status
             LocalDate startDate = clazz.getBeginDate();
@@ -63,11 +69,11 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public void deleteById(Integer id) {
 
-        // TODO: Check if class has associated students before deleting
-        // int count = studentMapper.countByClassId(id);
-        // if (count > 0) {
-        //     throw new CustomException("对不起, 该班级下有学生, 不能直接删除");
-        // }
+        // Check if class has associated students before deleting
+        int count = studentMapper.countByClassId(id);
+        if (count > 0) {
+            throw new ClassHasStudentsException("对不起, 该班级下有学生, 不能直接删除");
+        }
 
         classMapper.deleteById(id);
 
