@@ -63,4 +63,20 @@ public class ClassController {
 
         return Result.success();
     }
+
+
+    /**
+     * Get class information based on id
+     * @param id class id to be queried
+     * @return Result object containing class object (id) containing information
+     */
+    @GetMapping("/{id}")
+    public Result getClazzById(@PathVariable Integer id){
+
+        log.info("Query class information based on id: id is {}", id);
+
+        Clazz clazz = classService.getClazzById(id);
+
+        return Result.success(clazz);
+    }
 }

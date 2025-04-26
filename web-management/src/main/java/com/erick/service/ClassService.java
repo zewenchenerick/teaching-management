@@ -25,4 +25,11 @@ public interface ClassService {
      * @param clazz new class object with its information
      */
     void addClazz(Clazz clazz);
+
+    /**
+     * Get class information based on id
+     * @param id class id to be queried
+     * @return Clazz Object of the given id
+     */
+    Clazz getClazzById(Integer id);
 }

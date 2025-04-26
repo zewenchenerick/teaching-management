@@ -73,4 +73,11 @@ public class ClassServiceImpl implements ClassService {
         classMapper.addClazz(clazz);
 
     }
+
+    @Override
+    public Clazz getClazzById(Integer id) {
+
+        return classMapper.getClazzById(id);
+
+    }
 }
