@@ -1,6 +1,7 @@
 package com.erick.service;
 
 
+import com.erick.dto.EmpDTO;
 import com.erick.pojo.Emp;
 import com.erick.pojo.EmpQueryParam;
 import com.erick.pojo.PageResult;
@@ -61,4 +62,13 @@ public interface EmpService {
      * @return List of all employees
      */
     List<EmpVO> getAllEmp();
+
+    /**
+     * Authenticates an employee based on their credentials and returns their login information.
+     *
+     * @param emp Employee object containing the login credentials (e.g., username and password).
+     * @return An EmpDTO object encapsulating the login information if authentication is successful;
+     *         otherwise, null if authentication fails.
+     */
+    EmpDTO login(Emp emp);
 }

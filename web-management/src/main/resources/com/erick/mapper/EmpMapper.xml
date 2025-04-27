@@ -116,4 +116,8 @@
         from emp
     </select>
 
+    <select id="selectByUsernameAndPassword" resultType="com.erick.pojo.Emp">
+        select id, username, name from emp where username = #{username} and password = #{password}
+    </select>
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.erick.service.imp;
 
+import com.erick.dto.EmpDTO;
 import com.erick.mapper.EmpExprMapper;
 import com.erick.mapper.EmpMapper;
 import com.erick.pojo.*;
@@ -144,6 +145,21 @@ public class EmpServiceImpl implements EmpService {
             BeanUtils.copyProperties(emp, vo);
             return vo;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public EmpDTO login(Emp emp) {
+        // 1. invoke mapper to get employee information based on username and password
+        Emp e = empMapper.selectByUsernameAndPassword(emp);
+
+        // 2. assert if there is this employee, encapsulate information into EmpDTO if exist
+        if (e != null){
+            log.info("Login Success, employee information: {}", e);
+            return new EmpDTO(e.getId(), e.getUsername(), e.getName(), "");
+        }
+
+        // 3. return null if it does not exist, else return EmpDTO
+        return null;
     }
 
     // --------------------------------original method----------------------------------------------------

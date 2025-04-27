@@ -90,4 +90,12 @@ public interface EmpMapper {
      * @return List of all employees
      */
     List<Emp> getAllEmp();
+
+    /**
+     * Retrieves an employee record that matches the given username and password.
+     *
+     * @param emp the employee object containing the username and password to be matched
+     * @return the employee object if the provided credentials are valid, otherwise null
+     */
+    Emp selectByUsernameAndPassword(Emp emp);
 }
