@@ -6,11 +6,17 @@
 
     <insert id="addStudent">
         insert into
-            student(name, no, gender, phone, id_card, is_college, address, degree, graduation_date, clazz_id,
+            student(name, no, gender, phone, id_card, is_college, address, degree, graduation_date,
+                    <if test="clazzId != null">
+                        clazz_id,
+                    </if>
                     create_time, update_time)
         VALUES
             (#{name}, #{no}, #{gender}, #{phone}, #{idCard}, #{isCollege}, #{address}, #{degree}, #{graduationDate},
-             #{clazzId}, #{createTime}, #{updateTime})
+             <if test="clazzId != null">
+                 #{clazzId},
+             </if>
+             #{createTime}, #{updateTime})
     </insert>
     
     <update id="update">
@@ -84,6 +90,34 @@
 
     <select id="countByClassId" resultType="java.lang.Integer">
         select count(*) as total from student where clazz_id = #{id} group by clazz_id
+    </select>
+
+    <select id="countStudentData" resultType="java.util.Map">
+        SELECT
+            z.name AS clazz,
+            COUNT(s.id) AS count
+        FROM
+            clazz z
+                LEFT JOIN
+            student s ON s.clazz_id = z.id
+        GROUP BY
+            z.id, z.name
+        ORDER BY
+            count DESC;
+    </select>
+
+    <select id="countStudentDegreeData" resultType="java.util.Map">
+        select
+            (case when degree=1 then '初中'
+                when degree=2 then '高中'
+                when degree=3 then '大专'
+                when degree=4 then '本科'
+                when degree=5 then '硕士'
+                when degree=6 then '博士'
+                else '其他' end) as name,
+            count(*) as value
+        from student group by degree
+        order by value
     </select>
 
 </mapper>

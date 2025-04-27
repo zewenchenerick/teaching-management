@@ -37,11 +37,11 @@ public class StudentServiceImpl implements StudentService {
         // 4. set clazz Name for each student
         studentList.forEach(student -> {
             Integer clazzId = student.getClazzId();
-            System.out.println(clazzId);
             Clazz clazz = classMapper.getClazzById(clazzId);
-            System.out.println(clazz);
-            String clazzName = clazz.getName();
-            student.setClazzName(clazzName);
+            if (clazz != null){
+                String clazzName = clazz.getName();
+                student.setClazzName(clazzName);
+            }
         });
 
         return new PageResult<>(list.getTotal(), studentList);
@@ -60,11 +60,11 @@ public class StudentServiceImpl implements StudentService {
 
         // 2. update class name
         Integer clazzId = student.getClazzId();
-        System.out.println(clazzId);
-        Clazz clazz = classMapper.getClazzById(clazzId);
-        System.out.println(clazz);
-        String clazzName = clazz.getName();
-        student.setClazzName(clazzName);
+        if (clazzId != null){
+            Clazz clazz = classMapper.getClazzById(clazzId);
+            String clazzName = clazz.getName();
+            student.setClazzName(clazzName);
+        }
 
         // 3. Add
         studentMapper.addStudent(student);

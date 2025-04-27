@@ -2,10 +2,12 @@ package com.erick.mapper;
 
 import com.erick.pojo.Student;
 import com.erick.pojo.StudentQueryParam;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StudentMapper {
@@ -49,4 +51,19 @@ public interface StudentMapper {
      * @return number of student
      */
     int countByClassId(Integer id);
+
+
+    /**
+     * Count number of student in each class
+     * @return List of map <name, value>
+     */
+    @MapKey("clazz")
+    List<Map<String, Object>> countStudentData();
+
+    /**
+     * Count number of student in each degree
+     * @return List of map (Map name: values) for exmaple "初中"：10
+     */
+    @MapKey("degree")
+    List<Map<String, Object>> countStudentDegreeData();
 }

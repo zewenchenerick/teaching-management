@@ -1,6 +1,7 @@
 package com.erick.controller;
 
-import com.erick.pojo.JobOption;
+import com.erick.pojo.ClazzData;
+import com.erick.pojo.JobData;
 import com.erick.pojo.Result;
 import com.erick.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +29,9 @@ public class ReportController {
     public Result getEmpJobData(){
         log.info("Count the number of employees in each position");
 
-        JobOption jobOption = reportService.getEmpJobData();
+        JobData jobData = reportService.getEmpJobData();
 
-        return Result.success(jobOption);
+        return Result.success(jobData);
     }
 
 
@@ -46,6 +47,30 @@ public class ReportController {
         List<Map<String, Object>> genderList = reportService.getGenderData();
 
         return Result.success(genderList);
+    }
+
+
+    /**
+     * Count the number of students in each class
+     * @return Result object containing clazz data
+     */
+    @GetMapping("studentCountData")
+    public Result getStudentData(){
+        log.info("Count the number of students in each class");
+        ClazzData clazzData = reportService.getStudentData();
+        return Result.success(clazzData);
+    }
+
+
+    /**
+     * Count number of student for each degree
+     * @return Result object containing degree data
+     */
+    @GetMapping("studentDegreeData")
+    public Result getDegreeData(){
+        log.info("Count the number of students in each degree");
+        List<Map<String, Object>> degreeList = reportService.getStudentDegreeData();
+        return Result.success(degreeList);
     }
 
 }
