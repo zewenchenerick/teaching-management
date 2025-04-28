@@ -7,6 +7,7 @@ import com.erick.pojo.*;
 import com.erick.service.EmpLogService;
 import com.erick.service.EmpService;
 import com.erick.utils.AliyunOSSOperator;
+import com.erick.utils.JwtUtils;
 import com.erick.vo.EmpVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -19,7 +20,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -155,7 +158,14 @@ public class EmpServiceImpl implements EmpService {
         // 2. assert if there is this employee, encapsulate information into EmpDTO if exist
         if (e != null){
             log.info("Login Success, employee information: {}", e);
-            return new EmpDTO(e.getId(), e.getUsername(), e.getName(), "");
+
+            // Generate JWT token
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("id", e.getId());
+            claims.put("username", e.getUsername());
+            String jwt = JwtUtils.generateToken(claims);
+
+            return new EmpDTO(e.getId(), e.getUsername(), e.getName(), jwt);
         }
 
         // 3. return null if it does not exist, else return EmpDTO
