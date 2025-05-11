@@ -1,11 +1,13 @@
 package com.erick.service.imp;
 
+import com.erick.dto.EmpDTO;
 import com.erick.mapper.EmpExprMapper;
 import com.erick.mapper.EmpMapper;
 import com.erick.pojo.*;
 import com.erick.service.EmpLogService;
 import com.erick.service.EmpService;
 import com.erick.utils.AliyunOSSOperator;
+import com.erick.utils.JwtUtils;
 import com.erick.vo.EmpVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -18,7 +20,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -144,6 +148,28 @@ public class EmpServiceImpl implements EmpService {
             BeanUtils.copyProperties(emp, vo);
             return vo;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public EmpDTO login(Emp emp) {
+        // 1. invoke mapper to get employee information based on username and password
+        Emp e = empMapper.selectByUsernameAndPassword(emp);
+
+        // 2. assert if there is this employee, encapsulate information into EmpDTO if exist
+        if (e != null){
+            log.info("Login Success, employee information: {}", e);
+
+            // Generate JWT token
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("id", e.getId());
+            claims.put("username", e.getUsername());
+            String jwt = JwtUtils.generateToken(claims);
+
+            return new EmpDTO(e.getId(), e.getUsername(), e.getName(), jwt);
+        }
+
+        // 3. return null if it does not exist, else return EmpDTO
+        return null;
     }
 
     // --------------------------------original method----------------------------------------------------
