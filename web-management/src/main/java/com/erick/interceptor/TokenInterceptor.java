@@ -1,29 +1,24 @@
-package com.erick.Filter;
+package com.erick.interceptor;
 
 import com.erick.utils.JwtUtils;
-import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.IOException;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 @Slf4j
-// @WebFilter(urlPatterns = "/*")
-public class TokenFilter implements Filter {
+@Component
+public class TokenInterceptor implements HandlerInterceptor {
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         // 1. Get the path of the request
         // 2. assert if is a login request
         if (request.getRequestURI().equals("/login")) {
             // 3. if is a login request, continue
             log.info("Login Request, Continue");
-            filterChain.doFilter(request, response);
-            return;
+            return true;
         }
 
         // 4. if is not a login request, get the token from the request header
@@ -34,7 +29,7 @@ public class TokenFilter implements Filter {
             log.info("Token is null or empty, user is not logged in, return error messages(401 status code)");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             // response.setStatus(401);
-            return;
+            return false;
         }
 
         // 6. if the token exists, check if the token is valid. If not valid, return error messages(401 status code)
@@ -43,10 +38,10 @@ public class TokenFilter implements Filter {
         } catch (Exception e){
             log.info("Token is invalid, return error messages(401 status code)");
             response.setStatus(401);
-            return;
+            return false;
         }
         // 7. if the token is valid, continue
         log.info("Token is valid, continue");
-        filterChain.doFilter(request, response);
+        return true;
     }
 }
