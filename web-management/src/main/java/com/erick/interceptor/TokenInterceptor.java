@@ -15,11 +15,11 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         // 1. Get the path of the request
         // 2. assert if is a login request
-        if (request.getRequestURI().equals("/login")) {
-            // 3. if is a login request, continue
-            log.info("Login Request, Continue");
-            return true;
-        }
+        // if (request.getRequestURI().equals("/login")) {
+        //     // 3. if is a login request, continue
+        //     log.info("Login Request, Continue");
+        //     return true;
+        // }
 
         // 4. if is not a login request, get the token from the request header
         String token = request.getHeader("token");
