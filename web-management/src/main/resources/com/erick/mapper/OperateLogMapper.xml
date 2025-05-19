@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erick.mapper.OperateLogMapper">
+
+    <select id="getLogsByPage" resultType="com.erick.pojo.OperateLog">
+        select *, emp.name as operate_emp_name
+        from operate_log
+        left join emp
+        on operate_log.operate_emp_id = emp.id
+    </select>
+
+</mapper>

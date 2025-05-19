@@ -1,6 +1,8 @@
 package com.erick.interceptor;
 
+import com.erick.utils.CurrentHolder;
 import com.erick.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +36,9 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         // 6. if the token exists, check if the token is valid. If not valid, return error messages(401 status code)
         try {
-            JwtUtils.parseToken(token);
+            Claims claims = JwtUtils.parseToken(token);
+            CurrentHolder.setCurrentId(claims.get("id", Integer.class));
+            log.info("Current Employee ID: {}", CurrentHolder.getCurrentId());
         } catch (Exception e){
             log.info("Token is invalid, return error messages(401 status code)");
             response.setStatus(401);
@@ -43,5 +47,10 @@ public class TokenInterceptor implements HandlerInterceptor {
         // 7. if the token is valid, continue
         log.info("Token is valid, continue");
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        CurrentHolder.remove();
     }
 }

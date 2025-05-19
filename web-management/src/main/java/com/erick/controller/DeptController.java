@@ -1,5 +1,6 @@
 package com.erick.controller;
 
+import com.erick.annotation.Loggable;
 import com.erick.pojo.Dept;
 import com.erick.pojo.Result;
 import com.erick.service.DeptService;
@@ -43,6 +44,7 @@ public class DeptController {
         return Result.success();
     }*/
     @DeleteMapping
+    @Loggable
     public Result delete(Integer id) {
         // System.out.println("delete department based on id: " + id);
         log.info("Delete department based on id: {}", id);
@@ -57,6 +59,7 @@ public class DeptController {
      * @return result back to front end
      */
     @PostMapping
+    @Loggable
     public Result add(@RequestBody Dept dept){
         // System.out.println("add new department: " + dept);
         log.info("Add new department: {}", dept);
@@ -80,6 +83,7 @@ public class DeptController {
      * @return return updated result back to front end
      */
     @PutMapping
+    @Loggable
     public Result update(@RequestBody Dept dept){
         System.out.println("Update department " + dept);
         deptService.update(dept);
